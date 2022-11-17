@@ -7,7 +7,7 @@ namespace xadrez_console
 {
     class Tela
     {
-        
+
         public static void imprimirPartida(PartidaDeXadrez partida)
         {
             imprimirTabuleiro(partida.tab);
@@ -15,10 +15,18 @@ namespace xadrez_console
             imprimirPecasCapturadas(partida);
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.turno);
-            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
-            if (partida.xeque)
+            if (!partida.terminada)
             {
-                Console.WriteLine("XEQUE!");
+                Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+                if (partida.xeque)
+                {
+                    Console.WriteLine("XEQUE!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine("Vencedor: " + partida.jogadorAtual);
             }
         }
 
@@ -39,13 +47,13 @@ namespace xadrez_console
         public static void imprimirConjunto(HashSet<Peca> conjunto)
         {
             Console.Write("[");
-            foreach(Peca x in conjunto)
+            foreach (Peca x in conjunto)
             {
                 Console.Write(x + ",");
             }
             Console.Write("]");
-        } 
-        
+        }
+
         public static void imprimirTabuleiro(Tabuleiro tab)
         {
             for (int i = 0; i < tab.linhas; i++)
@@ -71,7 +79,7 @@ namespace xadrez_console
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < tab.colunas; j++)
                 {
-                    if(posicoesPossiveis[i, j])
+                    if (posicoesPossiveis[i, j])
                     {
                         Console.BackgroundColor = fundoAlterado;
                     }
@@ -110,7 +118,7 @@ namespace xadrez_console
                 }
                 Console.Write("");
             }
-            
+
         }
 
         public static PosicaoXadrez lerPosicaoXadrez()
